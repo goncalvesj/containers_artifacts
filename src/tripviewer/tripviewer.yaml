@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tripsviewer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tripsviewer
+  template:
+    metadata:
+      labels:
+        app: tripsviewer
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: tripsviewer
+        image: registryqhy3162.azurecr.io/tripinsights/tripviewer:v1
+        ports:
+        - containerPort: 80
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tripsviewer
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: tripsviewer

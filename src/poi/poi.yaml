@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poiapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poiapp
+  template:
+    metadata:
+      labels:
+        app: poiapp
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: poiapp
+        image: registryqhy3162.azurecr.io/tripinsights/poi:v1
+        ports:
+        - containerPort: 80
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: poiapp
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: poiapp

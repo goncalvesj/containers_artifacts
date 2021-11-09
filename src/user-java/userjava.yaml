@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userjava
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: userjava
+  template:
+    metadata:
+      labels:
+        app: userjava
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: userjava
+        image: registryqhy3162.azurecr.io/tripinsights/user-java:v1
+        ports:
+        - containerPort: 80
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: userjava
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: userjava
