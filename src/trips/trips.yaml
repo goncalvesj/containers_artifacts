@@ -17,6 +17,17 @@ spec:
       containers:
       - name: tripsapp
         image: registryqhy3162.azurecr.io/tripinsights/trips:v1
+        env:
+        - name: SQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: joao-test-secret
+              key: username
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: joao-test-secret
+              key: password
         ports:
         - containerPort: 80
           name: http
