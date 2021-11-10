@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tripsapp
+  namespace: api
 spec:
   replicas: 1
   selector:
@@ -17,17 +18,17 @@ spec:
       containers:
       - name: tripsapp
         image: registryqhy3162.azurecr.io/tripinsights/trips:v1
-        env:
-        - name: SQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: joao-test-secret
-              key: username
-        - name: SQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: joao-test-secret
-              key: password
+        # env:
+        # - name: SQL_USER
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: joao-test-secret
+        #       key: username
+        # - name: SQL_PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: joao-test-secret
+        #       key: password
         ports:
         - containerPort: 80
           name: http
@@ -36,6 +37,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tripsapp
+  namespace: api
 spec:
   ports:
   - port: 80

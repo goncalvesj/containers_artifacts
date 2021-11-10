@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tripsviewer
+  namespace: web
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: tripsviewer
@@ -16,7 +17,12 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: tripsviewer
-        image: registryqhy3162.azurecr.io/tripinsights/tripviewer:v1
+        image: registryqhy3162.azurecr.io/tripinsights/tripviewer:v2
+        env:
+        - name: TRIPS_API_ENDPOINT
+          value: "http://tripsapp.api"
+        - name: USERPROFILE_API_ENDPOINT
+          value: "http://userprofile.api"
         ports:
         - containerPort: 80
           name: http
@@ -25,6 +31,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tripsviewer
+  namespace: web
 spec:
   type: LoadBalancer
   ports:

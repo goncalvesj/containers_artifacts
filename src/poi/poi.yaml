@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: poiapp
+  namespace: api
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: poiapp
@@ -25,6 +26,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: poiapp
+  namespace: api
 spec:
   ports:
   - port: 80
