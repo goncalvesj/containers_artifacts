@@ -44,9 +44,9 @@ ARG IMAGE_CREATE_DATE
 ARG IMAGE_VERSION
 ARG IMAGE_SOURCE_REVISION
 
-ENV SQL_USER="sqladminqHy3162" \
-    SQL_PASSWORD="kQ3ar2Vt6" \
-    SQL_SERVER="sqlserverqhy3162.database.windows.net" \
+ENV SQL_USER="" \
+    SQL_PASSWORD="" \
+    SQL_SERVER="" \
     SQL_DBNAME="mydrivingDB" \
     WEB_PORT=80 \
     WEB_SERVER_BASE_URI="http://0.0.0.0" \
