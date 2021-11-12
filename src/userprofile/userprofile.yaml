@@ -18,9 +18,31 @@ spec:
       containers:
       - name: userprofile
         image: registryqhy3162.azurecr.io/tripinsights/userprofile:v1
+        # env:
+        # - name: SQL_USER
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: test-secret
+        #       key: dbuser
+        # - name: SQL_PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: test-secret
+        #       key: dbpassword
+        volumeMounts:
+        - name: secrets-store01-inline
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
         ports:
         - containerPort: 80
           name: http
+      volumes:
+      - name: secrets-store01-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "joao-azure-kvname-user-msi"
 ---
 apiVersion: v1
 kind: Service
